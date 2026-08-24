@@ -1,63 +1,95 @@
-body {
-  background-color: antiquewhite;
+:root {
+  color-scheme: light;
+  font-family: "Courier New", Courier, monospace;
 }
 
-h1 {
-  font-family: "Courier New", Courier, monospace;
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  background: antiquewhite;
+}
+
+main {
+  display: grid;
+  justify-items: center;
+  gap: 1.5rem;
 }
 
 .hidden {
   display: none;
 }
 
+.clock {
+  width: min(70vw, 20rem);
+  aspect-ratio: 1;
+}
+
 .digital {
-  font-size: larger;
-  font-family: Verdana, sans-serif;
+  display: grid;
+  place-items: center;
+  font: 2rem Verdana, sans-serif;
+}
+
+.digital.hidden {
+  display: none;
 }
 
 .analog {
   position: relative;
-  /*to make the height and width responsive*/
-  height: 20vw;
-  width: 20vw;
-  background: url(https://media.geeksforgeeks.org/wp-content/uploads/20210302161254/imgonlinecomuaCompressToSizeOmNATjUMFKw-300x300.jpg)
-    no-repeat;
-  /*setting our background image*/
-  background-size: 100%;
-  background-color: gainsboro;
+  box-sizing: border-box;
+  border: 0.75rem solid #33373d;
   border-radius: 50%;
+  background: repeating-conic-gradient(#33373d 0deg 1deg, transparent 1deg 30deg), gainsboro;
 }
 
-.hour,
-.minute,
-.second {
+.analog::after {
+  content: "";
   position: absolute;
-  background: black;
+  width: 5%;
+  aspect-ratio: 1;
+  top: 47.5%;
+  left: 47.5%;
+  border-radius: 50%;
+  background: #111;
+}
+
+.hand {
+  position: absolute;
+  left: 49%;
+  bottom: 50%;
   border-radius: 4px;
   transform-origin: bottom;
+  background: #111;
 }
 
 .hour {
   width: 2%;
-  height: 20%;
-  top: 30%;
-  left: 48.85%;
-  opacity: 0.7;
+  height: 24%;
 }
 
 .minute {
   width: 1.5%;
-  height: 25%;
-  top: 24%;
-  left: 49%;
-  opacity: 0.7;
+  height: 34%;
 }
 
 .second {
   width: 1%;
-  height: 35%;
-  top: 14.5%;
-  left: 49%;
-  opacity: 0.7;
-  background: #33373d;
+  height: 40%;
+  background: #c62828;
+}
+
+button {
+  padding: 0.7rem 1rem;
+  border: 2px solid #33373d;
+  border-radius: 0.4rem;
+  background: white;
+  color: #111;
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 3px solid #005fcc;
+  outline-offset: 3px;
 }
