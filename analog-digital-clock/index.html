@@ -3,19 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="style.css" />
-    <title>Clock</title>
+    <link rel="stylesheet" href="style.css" />
+    <title>Analog and Digital Clock</title>
   </head>
   <body>
-    <center>
-      <h1>Clock</h1>
-      <div class="clock analog">
-        <div class="hour"></div>
-        <div class="minute"></div>
-        <div class="second"></div>
+    <main>
+      <h1>Analog Clock</h1>
+      <div class="clock analog" aria-label="Current time shown on an analog clock">
+        <div class="hand hour"></div>
+        <div class="hand minute"></div>
+        <div class="hand second"></div>
       </div>
-      <div class="clock digital"></div>
-    </center>
+      <div class="clock digital hidden" role="timer" aria-live="off"></div>
+      <button type="button" id="toggle-clock">Switch to digital clock</button>
+    </main>
     <script src="index.js"></script>
   </body>
 </html>

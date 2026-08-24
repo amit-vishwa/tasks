@@ -3,53 +3,33 @@
 const heading = document.querySelector("h1");
 const analogClock = document.querySelector(".analog");
 const digitalClock = document.querySelector(".digital");
-const hour = document.querySelector(".hour");
-const minute = document.querySelector(".minute");
-const second = document.querySelector(".second");
+const toggleButton = document.querySelector("#toggle-clock");
+const hourHand = document.querySelector(".hour");
+const minuteHand = document.querySelector(".minute");
+const secondHand = document.querySelector(".second");
 
-(function init() {
-  digitalClock.classList.add("hidden");
-  heading.textContent = "Analog Clock";
-})();
+const updateClock = () => {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
 
-const showAnalogClock = function (date) {
-  const hr = date.getHours();
-  const min = date.getMinutes();
-  const sec = date.getSeconds();
-  // hour rotates 30 degrees per hour plus additional rotation for minutes (i.e. 30mins = 1/2 hr)
-  const hr_rotation = 30 * hr + min / 2;
-  const min_rotation = 6 * min;
-  const sec_rotation = 6 * sec;
-  // console.log(hr, min, sec, hr_rotation, min_rotation, sec_rotation);
-  hour.style.transform = `rotate(${hr_rotation}deg)`;
-  minute.style.transform = `rotate(${min_rotation}deg)`;
-  second.style.transform = `rotate(${sec_rotation}deg)`;
+  hourHand.style.transform = `rotate(${30 * hours + minutes / 2}deg)`;
+  minuteHand.style.transform = `rotate(${6 * minutes}deg)`;
+  secondHand.style.transform = `rotate(${6 * seconds}deg)`;
+  digitalClock.textContent = now.toLocaleTimeString();
 };
 
-const showDigitalClock = function (date) {
-  digitalClock.innerHTML = date.toLocaleTimeString();
+const toggleClock = () => {
+  const showDigital = digitalClock.classList.contains("hidden");
+  digitalClock.classList.toggle("hidden", !showDigital);
+  analogClock.classList.toggle("hidden", showDigital);
+  heading.textContent = showDigital ? "Digital Clock" : "Analog Clock";
+  toggleButton.textContent = showDigital
+    ? "Switch to analog clock"
+    : "Switch to digital clock";
 };
 
-const currentTime = function () {
-  const date = new Date();
-  showDigitalClock(date);
-  showAnalogClock(date);
-};
-setInterval(currentTime, 1000);
-
-const showClock = function () {
-  if (digitalClock.classList.contains("hidden")) {
-    digitalClock.classList.remove("hidden");
-    heading.textContent = "Digital Clock";
-  } else digitalClock.classList.add("hidden");
-  if (analogClock.classList.contains("hidden")) {
-    analogClock.classList.remove("hidden");
-    analogClock.classList.add("analog");
-    heading.textContent = "Analog Clock";
-  } else {
-    analogClock.classList.add("hidden");
-    analogClock.classList.remove("analog");
-  }
-};
-
-document.querySelector("body").addEventListener("click", showClock);
+toggleButton.addEventListener("click", toggleClock);
+updateClock();
+setInterval(updateClock, 1000);
